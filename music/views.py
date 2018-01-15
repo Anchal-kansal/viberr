@@ -130,13 +130,8 @@ def index(request):
         song_results = Song.objects.all()
         query = request.GET.get("q")
         if query:
-            albums = albums.filter(
-                Q(album_title__icontains=query) |
-                Q(artist__icontains=query)
-            ).distinct()
-            song_results = song_results.filter(
-                Q(song_title__icontains=query)
-            ).distinct()
+            albums = albums.filter( Q(album_title__icontains=query) | Q(artist__icontains=query) ).distinct()
+            song_results = song_results.filter(Q(song_title__icontains=query)).distinct()
             return render(request, 'music/index.html', {
                 'albums': albums,
                 'songs': song_results,
